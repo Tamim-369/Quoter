@@ -6,7 +6,7 @@ import Provider from "@/components/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Qouter",
+  title: "Quoter",
   description: "Discover and share motivational Qoutes",
 };
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <div className="w-full min-h-screen bg-black  text-gray-100">
+          <div className="w-full min-h-screen bg-[#0e1113]  text-gray-100">
             <Navbar />
             {children}
           </div>
