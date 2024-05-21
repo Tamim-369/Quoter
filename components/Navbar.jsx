@@ -60,7 +60,7 @@ const Navbar = () => {
                   <button
                     type="button"
                     onClick={() => signIn(provider.id)}
-                    key={provider.name}
+                    key={provider.id}
                     className="font-sans transition-all duration-150 ease-linear bg-gray-100 border py-1 px-3  flex justify-center items-center    text-black rounded-full"
                   >
                     Sign In
@@ -117,7 +117,7 @@ const Navbar = () => {
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
-                  key={provider.name}
+                  key={provider.id}
                   onClick={() => signIn(provider.id)}
                   className="font-sans transition-all duration-150 ease-linear hover:bg-gray-100 border py-1 px-3  flex justify-center items-center   bg-transparent text-white hover:text-black rounded-full"
                 >
