@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Form from "@/components/Form";
 import { ErrorBoundary } from "react-error-boundary";
 
-const updateQuotePage = () => {
+const UpdateQuoteContent = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
@@ -57,19 +57,23 @@ const updateQuotePage = () => {
   };
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong.</div>}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Form
-          type="Update"
-          post={post}
-          userName={session?.user.name}
-          setPost={setPost}
-          submitting={submitting}
-          handleSubmit={updateQuote}
-        />
-      </Suspense>
-    </ErrorBoundary>
+    <Form
+      type="Update"
+      post={post}
+      userName={session?.user.name}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={updateQuote}
+    />
   );
 };
 
-export default updateQuotePage;
+const UpdateQuotePage = () => (
+  <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <UpdateQuoteContent />
+    </Suspense>
+  </ErrorBoundary>
+);
+
+export default UpdateQuotePage;
