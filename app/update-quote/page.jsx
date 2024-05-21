@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
 import Form from "@/components/Form";
+import { ErrorBoundary } from "react-error-boundary";
+
 const updateQuotePage = () => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -16,6 +17,7 @@ const updateQuotePage = () => {
     quote: "",
     author: "",
   });
+
   useEffect(() => {
     const getQuote = async () => {
       const response = await fetch(`/api/quote/${quoteId}`);
@@ -27,6 +29,7 @@ const updateQuotePage = () => {
     };
     if (quoteId) getQuote();
   }, [quoteId]);
+
   const updateQuote = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -39,7 +42,6 @@ const updateQuotePage = () => {
           method: "PATCH",
           body: JSON.stringify({
             quote: post.quote,
-
             author: post.author,
           }),
         });
@@ -53,15 +55,20 @@ const updateQuotePage = () => {
       }
     }
   };
+
   return (
-    <Form
-      type="Update"
-      post={post}
-      userName={session?.user.name}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={updateQuote}
-    />
+    <ErrorBoundary fallback={<div>Something went wrong.</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Form
+          type="Update"
+          post={post}
+          userName={session?.user.name}
+          setPost={setPost}
+          submitting={submitting}
+          handleSubmit={updateQuote}
+        />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
